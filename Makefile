@@ -90,3 +90,8 @@ deploy-healthcare: copy-deploy-config-healthcare ## Deploy the healthcare on AWS
 deploy: build build-example build-healthcare ## Deploy all on AWS S3. Usage DEPLOY_ENV=[dev|integration|staging] make deploy.
 	make deploy-example
 	make deploy-healthcare
+
+deploy-sec4you: ## Deploy via scp em liapigw01.sec4you.dev
+	cp config/config-dev.js  packages/healthcare/build/config.js
+	@NODE_ENV=development yarn build 
+	scp -r packages/healthcare/build/* root@liapigw01:/opt/www
