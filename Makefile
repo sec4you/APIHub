@@ -92,6 +92,7 @@ deploy: build build-example build-healthcare ## Deploy all on AWS S3. Usage DEPL
 	make deploy-healthcare
 
 deploy-sec4you: ## Deploy via scp em liapigw01.sec4you.dev
-	cp config/config-dev.js  packages/healthcare/build/config.js
+	make build-example 
+	cp config/config-dev.js  packages/example/build/config.js
 	@NODE_ENV=development yarn build 
-	scp -r packages/healthcare/build/* root@liapigw01:/opt/www
+	scp -r packages/example/build/* root@liapigw01:/opt/www
